@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==' crossorigin='anonymous'></script>
+
+    <style>
+        body{
+            margin: 0px;
+        }
+        table{
+            font-family: Inter, sans-serif;
+            background-color: rgb(25,25,25);
+            color: white;
+            width: 340px;
+        }
+        tr:first-child{
+            font-size: 22px;
+        }
+        tr:nth-child(2){
+            font-size:19px
+        }
+        tr:first-child .rank span{
+            font-size:15px;
+        }
+        .points{
+            text-align:right;
+            font-weight: 700;
+        }
+        tr{
+            font-size:16px;
+        }
+        td{
+            padding: 5px;
+        }
+        tr:nth-child(odd) {
+            background: rgb(29, 29, 29)
+        }
+        .emote{
+            height:28px;
+        }
+        .emote.secound{
+            height:23px;
+        }
+        .rank span{
+            font-size:12px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+
+        var table = $('<table id="leaderboard">').addClass('foo');
+     /*   for(i=0; i<3; i++){
+            var row = $('<tr>').addClass('bar').text('result ' + i);
+            table.append(row);
+        }*/
+        fetch('http://localhost:3000/api/points')
+            .then(response => response.json())
+            .then(points => {
+                points.forEach((point,index) =>{
+                    if(index > 14) return
+
+                    var row = $(`
+                    <tr>
+                        <td class="rank"><span>#</span>${point[0].replace('#','')}</td>
+                        <td>${ index == 0 ? "<img class='emote' src='https://cdn.betterttv.net/emote/6044e31b306b602acc598811/3x'/> " : ""}
+                            ${ index == 1 ? "<img class='emote secound' src='https://cdn.frankerfacez.com/emote/318914/4'/> " : ""}
+                            ${ index == 497 ? "<img class='emote' src='https://cdn.frankerfacez.com/emote/590273/1'/> " : ""}${point[1]}</td>
+                        <td class="points">${point[3]}</td>
+                    </tr>
+                    `)
+                    table.append(row);
+                })
+    
+                $('#table-container').append(table);
+    
+            });
+    
+    </script>
+    
+    <div id="table-container">
+    </div>
+</body>
+</html>
