@@ -18,7 +18,7 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-fs.readFile(path.resolve(__dirname, 'points.json'), 'utf8' , (err, data) => {
+fs.readFile(path.resolve(__dirname, 'cristianghost.json'), 'utf8' , (err, data) => {
   if (err) {
     console.error(err)
     return
