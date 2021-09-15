@@ -9,9 +9,14 @@ const cors = require('cors')
 app.use(cors())
 
 var cristianghost = []
+var moaigr = []
 
 app.get('/api/points/cristianghost', (req, res) => {
   res.json(cristianghost)
+})
+
+app.get('/api/points/moaigr', (req, res) => {
+  res.json(moaigr)
 })
 
 app.listen(port, () => {
@@ -24,5 +29,14 @@ fs.readFile(path.resolve(__dirname, 'cristianghost.json'), 'utf8' , (err, data) 
     return
   }
   cristianghost = JSON.parse(data)
+  //console.log(users)
+})
+
+fs.readFile(path.resolve(__dirname, 'moaigr.json'), 'utf8' , (err, data) => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  moaigr = JSON.parse(data)
   //console.log(users)
 })
