@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Donos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <style>
+        input{
+            width:80px;
+        }
+    </style>
+
+    <div class="container">
+        <h2>Añadir un donador</h2>
+
+        <div class="container">
+            <div class="row">
+              <div class="col align-self-start">
+                <form action="/dashboard/dono" method="post">
+                    <div class="mb-3">
+                      <label for="twitch" class="form-label">Twitch Username</label>
+                      <input name="twitch" type="text" class="form-control" id="twitch">
+                    </div>
+                    <div class="mb-3">
+                        <label for="booyah" class="form-label">Booyah Username</label>
+                        <input name="booyah" type="text" class="form-control" id="booyah">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input name="pass" id="password" type="password" class="form-control">
+                    </div>
+
+                    <input type="submit" value="Crear" class="btn btn-primary btn-block"></button>
+                    
+                  </form>
+        
+              </div>
+              <div class="col align-self-center">
+              </div>
+              <div class="col align-self-end">
+              </div>
+            </div>
+          </div>
+
+
+
+        <br>
+        <h2>Donadores</h2>
+
+        <table class="table">
+            <thead>
+                <tr class="table-dark">
+                    <th>ID</th>
+                    <th>Booyah Name</th>
+                    <!--<th>Twitch Name</th>-->
+                    <th>Badge</th>
+                    <th></th>
+                    <th>Source</th>
+                    <th>Title</th>
+                    <th>Subtitle</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% for(var i=0; i < donos.length; i++) { %>
+                    <tr>
+                        <form action="/dashboard/dono/edit" method="post">
+
+                        <td>
+                            <%= donos[i].id %>
+                        </td>
+                        <td>
+                            <input style="width:190px" type="text" name="name" value="<%= donos[i].name %>"> 
+                        </td>
+                         <!--<td>
+                            <a href="http://twitch.tv/<%= donos[i].twitch_name %>" target="_blank" rel="noopener noreferrer"><%= donos[i].twitch_name %></a>
+                        </td>-->
+                        <td>
+
+                            <input style="width:190px" type="text" name="badge" value="<%= donos[i].badge %>">
+                        </td>
+                        <td>
+                            <% if (donos[i].badge_source == 'bttv') { %>
+                                <a target="_blank" href="https://betterttv.com/emotes/<%= donos[i].badge %>">
+                                    <img height="28px" src="https://cdn.betterttv.net/emote/<%= donos[i].badge %>/3x" alt="">
+                                </a>
+                            <% }else if (donos[i].badge_source == 'ffz'){ %>
+                            <a target="_blank" href="https://www.frankerfacez.com/emoticon/<%= donos[i].badge %>-">
+                                <img height="28px" src="https://cdn.frankerfacez.com/emoticon/<%= donos[i].badge %>/1" alt="">
+                            </a>
+                            <% } %>
+                                    
+                            </td>
+                        <td>
+
+                            <select class="form-control" name="badge_source" id="source">
+
+                            <%
+                            var options = [ "ffz", "bttv" ];
+
+                            for ( var j = 0; j < options.length; j++ )
+                            {
+                                var selected = ( donos[i].badge_source == options[ j ] ) ? "selected" : "";
+                                %><option value="<%=options[ j ] %>" <%=selected %>><%=options[ j ] %></option><%
+                            }
+                            %>
+                            </select>
+                        </td>
+
+                        <td>
+                            <textarea placeholder="Donador de booyah tv" type="text" name="title"><%= donos[i].title %></textarea> 
+                        </td>
+                        <td>
+                            <textarea placeholder="&lt;3" type="text" name="subtitle"><%= donos[i].subtitle %> </textarea> 
+
+                            <input type="hidden" name="id" value="<%= donos[i].id %>">
+                        </td>
+                        <td>
+                            <input style="width:40px" name="pass" type="password" />
+                            <input style="width: 40px;" type="submit" type="button" value="✎" class="btn btn-success">
+                        </td>
+
+
+                    </form>
+
+                        <td>
+                            <form action="/dashboard/dono/delete" method="post">
+                                 <input style="width:40px" name="pass" type="password" />
+
+                                
+                                
+                                <input type="hidden" name="id" value="<%= donos[i].id %>">
+                                <input style="width: 40px;" type="submit" type="button" value="x" class="btn btn-danger">
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+
+            </tbody>
+        </table>
+
+        <a target="__blank" href="https://streamelements.com/dashboard/activity">Ver lista de donadores</a>
+
+    </div>
+
+
+    </table>
+
+</body>
+
+</html>

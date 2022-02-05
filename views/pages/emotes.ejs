@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Dashboard | Donos</title>
+        <%- include('../partials/head.ejs') %> 
+
+</head>
+
+<body>
+    <%- include('../partials/navbar') %> 
+
+    <div class="jumbotron jumbotron-fluid jumbotron-emotes" >
+        <div class="container">
+          <h1 class="display-4">Emotes de booyah tv</h1>
+          <p class="lead">Emotes de better ttv/ franker face z para booyah! por canal.</p>
+        </div>
+      </div>
+
+    <div class="container">
+        <h2>Añadir un emote</h2>
+
+        
+        <div class="container">
+            <div class="row">
+              <div class="col align-self-start">
+                <form action="/dashboard/emote" method="post">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nombre del emote</label>
+                      <input name="name" type="text" class="form-control" id="name" placeholder="EZ">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name_streamer" class="form-label">Streamer</label>
+                        <input name="name_streamer" type="text" class="form-control" id="name_streamer" placeholder="cristianghost">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link" class="form-label">Link</label>
+                        <input name="link" type="text" class="form-control" id="link" placeholder="https://betterttv.com/emotes/5590b223b344e2c42a9e28e3">
+                    </div>
+
+                    <input type="submit" value="Crear" class="btn btn-primary btn-block"></button>
+                    
+                  </form>
+        
+              </div>
+              <div class="col align-self-center">
+              </div>
+              <div class="col align-self-end">
+              </div>
+            </div>
+          </div>
+
+
+
+        <br>
+
+        <table class="table">
+            <thead>
+                <tr class="table-dark">
+                    <th></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Streamer</th>
+                    <th>Emote link</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% for(var i=0; i < emotes.length; i++) { %>
+                    <tr>
+                        <form action="/dashboard/emote/edit" method="post" onsubmit="return confirm('¿Estas seguro que deseas modificar este emote?');">
+                        <td>
+                            <% if (emotes[i].source == 'bttv') { %>
+                                <a target="_blank" href="https://betterttv.com/emotes/<%= emotes[i].id %>">
+                                    <img height="72px" src="https://cdn.betterttv.net/emote/<%= emotes[i].id %>/3x" alt="">
+                                </a>
+                            <% }else if (emotes[i].source == 'ffz'){ %>
+                            <a target="_blank" href="https://www.frankerfacez.com/emoticon/<%= emotes[i].id %>-">
+                                <img height="72px" src="https://cdn.frankerfacez.com/emoticon/<%= emotes[i].id %>/4" alt="">
+                            </a>
+                            <% }else if (emotes[i].source == 'sub'){ %>
+                                <a target="_blank" href="https://static-cdn.jtvnw.net/emoticons/v1/<%= emotes[i].id %>/4.0">
+                                    <img height="72px" src="https://static-cdn.jtvnw.net/emoticons/v1/<%= emotes[i].id %>/1.0" alt="">
+                                </a>
+                            <% } %>
+                                    
+                        </td>
+                        <td>
+                            <%= emotes[i].emote_id %>
+                        </td>
+                        <td>
+                            <input style="width:190px" type="text" name="name" value="<%= emotes[i].name %>"> 
+                        </td>
+                        <td>
+                            <input style="width:190px" type="text" name="name_streamer" value="<%= emotes[i].name_streamer %>">
+                        </td>
+                        <td>
+
+                            <% if (emotes[i].source == 'bttv') { %>
+                                <input style="width:290px" type="text" name="link" value="https://betterttv.com/emotes/<%= emotes[i].id %>">
+                             
+                            <% }else if (emotes[i].source == 'ffz'){ %>
+                                <input style="width:290px" type="text" name="link" value="https://www.frankerfacez.com/emoticon/<%= emotes[i].id %>">
+                            <% }else if (emotes[i].source == 'sub'){ %>
+                                <input style="width:290px" type="text" name="link" value="https://static-cdn.jtvnw.net/emoticons/v1/<%= emotes[i].id %>/4.0">
+                            <% } %>
+
+                        </td>
+
+                        <td>
+                            <label for=""><%= emotes[i].source %></label>
+                        </td>
+                    
+                        <td class="editbtn">
+                            <input type="hidden" name="id" value="<%= emotes[i].emote_id %>">
+
+                            <input style="width: 40px;" type="submit" type="button" value="✎" class="clearbtn">
+                        </td>
+
+
+                    </form>
+
+                        <td class="deletebtn">
+                            <form action="/dashboard/emote/delete" method="post"  onsubmit="return confirm('¿Estas seguro que deseas borrar este emote?');">                                
+                                
+                                <input type="hidden" name="id" value="<%= emotes[i].emote_id %>">
+                                <input style="width: 40px;" type="submit" type="button" value="x" class="clearbtn">
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    </table>
+
+</body>
+
+</html>

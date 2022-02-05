@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head> 
+    <title>SNAKE</title>
+    <style>
+      @font-face {
+          font-family: 'pixelated';
+          src: url('./fonts/pixelated2.ttf');
+      }
+     * {
+        margin: 0;
+        padding: 0;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;      
+      }
+      body {
+        font: 24px Helvetica, Arial;
+        overflow: hidden;
+        background-color: #363435;
+      }
+
+      #players{
+        font-size: 12px;
+        text-align: center;
+        position: absolute;
+        top: 16px;
+        padding:8px;
+        width: 150px;
+        color: white;
+        background-color: rgba(0,0,0,0.5);
+      }
+      #nickname{
+        color: white;
+        position: absolute;
+        top: 506px;
+        left: 100px;
+      }
+
+      #points{
+        color: white;
+        position: absolute;
+        top: 32px;
+        left: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zingtouch/1.0.6/zingtouch.min.js" integrity="sha512-HmaXasRYOQJEXJWYwYCMcIA/XnPtW9WPvaBVWE2mQP6K31sRdcgaYUyB//P5540J4hFqMBcj6vkDEEGkwHkYdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      var nickname = "<%= nickname %>"
+    </script>
+
+      <!--  <div id="nickname"></div>-->
+    <div id="points"></div>
+      
+    <div id="players"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/js/utils.js?334=34"></script>
+    <script src="/js/main.js?334=34"></script>
+    <script src="/js/joystick.js?334=34"></script>
+    <script src="/js/mobile.js?334=45"></script>
+
+  </body>
+</html>
+

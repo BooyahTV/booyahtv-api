@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard | Donos</title>
+    <%- include('../partials/head.ejs') %> 
+</head>
+
+<body>
+    <%- include('../partials/navbar') %> 
+
+    <div class="jumbotron jumbotron-fluid jumbotron-badges" >
+        <div class="container">
+          <h1 class="display-4">Emblemas de booyah tv</h1>
+          <p class="lead">Los Emblemas de booyah tv se consiguen donando. pueden ser emotes de better ttv/ franker face z y por defecto es el emblema de vip de twitch.tv </p>
+        </div>
+      </div>
+
+    <div class="container">
+        <h2>Añadir un donador</h2>
+
+        <div class="container">
+            <div class="row">
+              <div class="col align-self-start">
+                <form action="/dashboard/donations" method="post">
+                    <div class="mb-3">
+                      <label for="twitch" class="form-label">Twitch Username</label>
+                      <input name="twitch" type="text" class="form-control" id="twitch">
+                    </div>
+                    <div class="mb-3">
+                        <label for="booyah" class="form-label">Booyah Username</label>
+                        <input name="booyah" type="text" class="form-control" id="booyah">
+                    </div>
+
+                    <input type="submit" value="Crear" class="btn btn-primary btn-block"></button>
+                    
+                  </form>
+        
+              </div>
+              <div class="col align-self-center">
+              </div>
+              <div class="col align-self-end">
+              </div>
+            </div>
+          </div>
+
+
+
+        <br>
+
+        <table class="table">
+            <thead>
+                <tr class="table-dark">
+                    <th>ID</th>
+                    <th>Booyah Name</th>
+                    <!--<th>Twitch Name</th>-->
+                    <th>Badge</th>
+                    <th></th>
+                    <th>Source</th>
+                    <th>Title</th>
+                    <th>Subtitle</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% for(var i=0; i < donations.length; i++) { %>
+                    <tr>
+                        <form action="/dashboard/donations/edit" method="post" onsubmit="return confirm('¿Estas seguro que deseas modificar este emblema?');">
+
+                        <td>
+                            <%= donations[i].id %>
+                        </td>
+                        <td>
+                            <input style="width:190px" type="text" name="name" value="<%= donations[i].name %>"> 
+                        </td>
+                         <!--<td>
+                            <a href="http://twitch.tv/<%= donations[i].twitch_name %>" target="_blank" rel="noopener noreferrer"><%= donations[i].twitch_name %></a>
+                        </td>-->
+                        <td>
+
+                            <input style="width:190px" type="text" name="badge" value="<%= donations[i].badge %>">
+                        </td>
+                        <td>
+                            <% if (donations[i].badge_source == 'bttv') { %>
+                                <a target="_blank" href="https://betterttv.com/emotes/<%= donations[i].badge %>">
+                                    <img height="28px" src="https://cdn.betterttv.net/emote/<%= donations[i].badge %>/3x" alt="">
+                                </a>
+                            <% }else if (donations[i].badge_source == 'ffz'){ %>
+                            <a target="_blank" href="https://www.frankerfacez.com/emoticon/<%= donations[i].badge %>-">
+                                <img height="28px" src="https://cdn.frankerfacez.com/emoticon/<%= donations[i].badge %>/1" alt="">
+                            </a>
+                            <% } %>
+                                    
+                            </td>
+                        <td>
+
+                            <select class="form-control" name="badge_source" id="source">
+
+                            <%
+                            var options = [ "ffz", "bttv" ];
+
+                            for ( var j = 0; j < options.length; j++ )
+                            {
+                                var selected = ( donations[i].badge_source == options[ j ] ) ? "selected" : "";
+                                %><option value="<%=options[ j ] %>" <%=selected %>><%=options[ j ] %></option><%
+                            }
+                            %>
+                            </select>
+                        </td>
+
+                        <td>
+                            <textarea placeholder="Donador de booyah tv" type="text" name="title"><%= donations[i].title %></textarea> 
+                        </td>
+                        <td>
+                            <textarea placeholder="&lt;3" type="text" name="subtitle"><%= donations[i].subtitle %> </textarea> 
+
+                            <input type="hidden" name="id" value="<%= donations[i].id %>">
+                        </td>
+                        <td class="editbtn">
+                            <input style="width: 40px;" type="submit" type="button" value="✎" class="clearbtn">
+                        </td>
+
+
+                    </form>
+
+                        <td class="deletebtn">
+                            <form action="/dashboard/donations/delete" method="post" onsubmit="return confirm('¿Estas seguro que deseas borrar este emblema?');">                                
+                                
+                                <input type="hidden" name="id" value="<%= donations[i].id %>">
+                                <input style="width: 40px;" type="submit" type="button" value="x" class="clearbtn">
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+
+            </tbody>
+        </table>
+
+        <a target="__blank" href="https://streamelements.com/dashboard/activity">Ver lista de donadores</a>
+
+    </div>
+
+
+    </table>
+
+</body>
+
+</html>

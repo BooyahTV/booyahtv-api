@@ -1,0 +1,62 @@
+input{
+    width:80px;
+}
+
+.table{
+    border-right: black solid 2px;
+    border-left: black solid 2px;
+    border-bottom: black solid 2px;    
+}
+.editbtn{
+    background-color: #198754!important;
+}
+.deletebtn{
+    background-color: #dc3545!important;
+}
+.editbtn:hover{
+    background-color: #106e42!important;
+}
+.deletebtn:hover{
+    background-color: #961b27!important;
+}
+.aprovebtn{
+    background-color: #16106e!important;
+}
+.aprovebtn:hover{
+    background-color: #0e0a4b!important;
+}
+.aproved{
+    background-color: #c8c8c8;
+}
+
+
+
+.clearbtn{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;       /* The same as your div height */
+    font-size:25px;
+}
+.jumbotron{
+    background-color:#a970ff;
+    color: white;
+    font-weight: bold;
+    height:200px;
+    text-align: center;
+    text-shadow: 4px 4px 14px black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.jumbotron-emotes{
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://www.streamscheme.com/wp-content/uploads/2020/05/bttv-emotes-1.png');
+}
+.jumbotron-badges{
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://blog.cdn.own3d.tv/resize=fit:crop,width:600,height:314/X4CJWvE8RUWUZV2QKxRF');
+}
